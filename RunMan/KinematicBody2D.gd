@@ -8,6 +8,9 @@ var lastlado = 0
 var gravity = 700
 var jumpcount = 0
 var jumps = -250
+var madeiras = 0
+
+var arvore = false
 
 
 func animate(motion):
@@ -20,7 +23,12 @@ func animate(motion):
 	elif  motion.y != 0 and not is_on_floor():
 		_animated_sprite.play("jump")
 	else:
-		_animated_sprite.play("idle")
+		if arvore && Input.is_action_pressed("corta_arvore"):
+			_animated_sprite.play("corta")
+			madeiras += 0.1
+			
+		else:
+			_animated_sprite.play("idle")
 	
 
 func jump():
@@ -46,14 +54,22 @@ func get_input():
 
 func _physics_process(delta):
 	
-		   
+	$CanvasLayer/Label.text = 'Madeiras: ' + str(madeiras)	  
 	get_input()
 	movimento.y += gravity * delta
 	movimento = move_and_slide(movimento, Vector2.UP)
 	jump()
 	animate(movimento)
+	
 
 # Replace with function body.
 	
 
 
+
+func _on_Area2D_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	arvore = true
+
+
+func _on_Area2D_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	arvore = false
