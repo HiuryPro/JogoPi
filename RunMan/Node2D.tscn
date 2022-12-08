@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://runfrente/pixil-frame-6.png" type="Texture" id=1]
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://arvore.png" type="Texture" id=15]
 [ext_resource path="res://grama.jpg" type="Texture" id=16]
 [ext_resource path="res://Party Confetti.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://madeira.png" type="Texture" id=18]
+[ext_resource path="res://pedra.png" type="Texture" id=19]
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
@@ -123,12 +125,15 @@ shape = SubResource( 10 )
 [node name="Label" type="Label" parent="KinematicBody2D/CanvasLayer"]
 anchor_right = 0.063
 anchor_bottom = 0.226
-margin_left = 316.0
-margin_top = 59.0
-margin_right = 611.488
-margin_bottom = -39.6
+margin_left = 684.0
+margin_top = 1.0
+margin_right = 763.488
+margin_bottom = -85.6
 custom_fonts/font = SubResource( 15 )
-text = "erwerwerwer"
+
+[node name="Madeira" type="Sprite" parent="KinematicBody2D/CanvasLayer"]
+position = Vector2( 662, 26 )
+texture = ExtResource( 18 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 881, 758 )
@@ -143,7 +148,7 @@ tile_data = PoolIntArray( -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, 2, 1, 0, 3, 
 
 [node name="Back" type="Sprite" parent="."]
 show_behind_parent = true
-position = Vector2( -92, 50 )
+position = Vector2( 53, 7 )
 texture = ExtResource( 14 )
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -159,6 +164,11 @@ show_behind_parent = true
 position = Vector2( -44, 148 )
 scale = Vector2( 2.99609, 2.78906 )
 texture = ExtResource( 15 )
+
+[node name="Pedra" type="Sprite" parent="."]
+position = Vector2( 87, -264 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 19 )
 
 [connection signal="body_shape_entered" from="Area2D" to="KinematicBody2D" method="_on_Area2D_body_shape_entered"]
 [connection signal="body_shape_exited" from="Area2D" to="KinematicBody2D" method="_on_Area2D_body_shape_exited"]

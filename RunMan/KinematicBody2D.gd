@@ -54,7 +54,7 @@ func get_input():
 
 func _physics_process(delta):
 	
-	$CanvasLayer/Label.text = 'Madeiras: ' + str(madeiras)	  
+	$CanvasLayer/Label.text = str(madeiras)	  
 	get_input()
 	movimento.y += gravity * delta
 	movimento = move_and_slide(movimento, Vector2.UP)
