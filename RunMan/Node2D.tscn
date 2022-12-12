@@ -1,7 +1,7 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://runfrente/pixil-frame-6.png" type="Texture" id=1]
-[ext_resource path="res://KinematicBody2D.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/KinematicBody2D.gd" type="Script" id=2]
 [ext_resource path="res://runfrente/pixil-frame-0.png" type="Texture" id=3]
 [ext_resource path="res://runfrente/pixil-frame-1.png" type="Texture" id=4]
 [ext_resource path="res://runfrente/pixil-frame-4.png" type="Texture" id=5]
@@ -14,11 +14,13 @@
 [ext_resource path="res://corta_espada/pixil-frame-0.png" type="Texture" id=12]
 [ext_resource path="res://corta_espada/pixil-frame-1.png" type="Texture" id=13]
 [ext_resource path="res://back.jpg" type="Texture" id=14]
-[ext_resource path="res://arvore.png" type="Texture" id=15]
+[ext_resource path="res://arvore2.png" type="Texture" id=15]
 [ext_resource path="res://grama.jpg" type="Texture" id=16]
 [ext_resource path="res://Party Confetti.ttf" type="DynamicFontData" id=17]
 [ext_resource path="res://madeira.png" type="Texture" id=18]
 [ext_resource path="res://pedra.png" type="Texture" id=19]
+[ext_resource path="res://arvore1.png" type="Texture" id=20]
+[ext_resource path="res://label.gd" type="Script" id=21]
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
@@ -55,10 +57,6 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 31, 40 )
-
-[sub_resource type="DynamicFont" id=15]
-size = 45
-font_data = ExtResource( 17 )
 
 [sub_resource type="ConvexPolygonShape2D" id=11]
 points = PoolVector2Array( 91, 75, 1, 75, 1, 1.75, 91, 1.75 )
@@ -101,10 +99,15 @@ points = PoolVector2Array( 91, 75, 1, 75, 1, 1.75, 91, 1.75 )
 1/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 52, 48.5 )
+extents = Vector2( 52, 44.5938 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 45
+font_data = ExtResource( 17 )
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 374, 293 )
+script = ExtResource( 21 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 position = Vector2( -31, 288 )
@@ -120,9 +123,67 @@ playing = true
 position = Vector2( -266, -104 )
 shape = SubResource( 10 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="KinematicBody2D"]
+[node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
+current = true
 
-[node name="Label" type="Label" parent="KinematicBody2D/CanvasLayer"]
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 12 )
+cell_size = Vector2( 56, 57 )
+cell_custom_transform = Transform2D( 60, 0, 0, 64, 0, 0 )
+show_collision = true
+format = 1
+tile_data = PoolIntArray( 327670, 0, 0, 327671, 0, 0, 327672, 0, 0, 327673, 0, 0, 327674, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0 )
+
+[node name="Back" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( 45, 30 )
+scale = Vector2( 1.515, 0.913333 )
+texture = ExtResource( 14 )
+
+[node name="Area2D" type="Area2D" parent="."]
+show_behind_parent = true
+position = Vector2( 336, -23 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -62, 203.406 )
+shape = SubResource( 14 )
+
+[node name="Arvore2" type="Sprite" parent="Area2D"]
+position = Vector2( -57, 192 )
+texture = ExtResource( 15 )
+
+[node name="Area2D3" type="Area2D" parent="."]
+show_behind_parent = true
+position = Vector2( 117, -21 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2( -62, 202.875 )
+shape = SubResource( 14 )
+
+[node name="Arvore2" type="Sprite" parent="Area2D3"]
+position = Vector2( -57, 192 )
+texture = ExtResource( 15 )
+
+[node name="Pedra" type="Sprite" parent="."]
+position = Vector2( 107, -270 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 19 )
+
+[node name="Area2D2" type="Area2D" parent="."]
+show_behind_parent = true
+position = Vector2( -423, -24 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2( -68, 202.813 )
+shape = SubResource( 14 )
+
+[node name="Arvore1" type="Sprite" parent="Area2D2"]
+position = Vector2( -61, 195 )
+texture = ExtResource( 20 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
 anchor_right = 0.063
 anchor_bottom = 0.226
 margin_left = 684.0
@@ -131,44 +192,13 @@ margin_right = 763.488
 margin_bottom = -85.6
 custom_fonts/font = SubResource( 15 )
 
-[node name="Madeira" type="Sprite" parent="KinematicBody2D/CanvasLayer"]
+[node name="Madeira" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 662, 26 )
 texture = ExtResource( 18 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 881, 758 )
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 12 )
-cell_size = Vector2( 56, 57 )
-cell_custom_transform = Transform2D( 60, 0, 0, 64, 0, 0 )
-show_collision = true
-format = 1
-tile_data = PoolIntArray( -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 65538, 1, 0, 65539, 1, 0, 65540, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 196610, 1, 0, 196611, 1, 0, 196612, 1, 0, 327674, 0, 0, 327675, 0, 0, 327676, 0, 0, 327677, 0, 0, 327678, 0, 0, 327679, 0, 0 )
-
-[node name="Back" type="Sprite" parent="."]
-show_behind_parent = true
-position = Vector2( 53, 7 )
-texture = ExtResource( 14 )
-
-[node name="Area2D" type="Area2D" parent="."]
-show_behind_parent = true
-position = Vector2( 39, -7 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -68, 203 )
-shape = SubResource( 14 )
-
-[node name="Arvore" type="Sprite" parent="Area2D"]
-show_behind_parent = true
-position = Vector2( -44, 148 )
-scale = Vector2( 2.99609, 2.78906 )
-texture = ExtResource( 15 )
-
-[node name="Pedra" type="Sprite" parent="."]
-position = Vector2( 87, -264 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 19 )
-
 [connection signal="body_shape_entered" from="Area2D" to="KinematicBody2D" method="_on_Area2D_body_shape_entered"]
 [connection signal="body_shape_exited" from="Area2D" to="KinematicBody2D" method="_on_Area2D_body_shape_exited"]
+[connection signal="body_shape_entered" from="Area2D3" to="KinematicBody2D" method="_on_Area2D_body_shape_entered"]
+[connection signal="body_shape_exited" from="Area2D3" to="KinematicBody2D" method="_on_Area2D_body_shape_exited"]
+[connection signal="body_shape_entered" from="Area2D2" to="KinematicBody2D" method="_on_Area2D_body_shape_entered"]
+[connection signal="body_shape_exited" from="Area2D2" to="KinematicBody2D" method="_on_Area2D_body_shape_exited"]
